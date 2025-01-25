@@ -1,20 +1,6 @@
 # Iris Flower Classification - Model Deployment
 
-This project demonstrates the training, packaging, and deployment of a machine learning model for classifying iris flowers. The model is trained using the classic Iris dataset and a Random Forest classifier. Hyperparameter tuning is performed using `GridSearchCV` to find the best model parameters. The trained model is then packaged into a Docker container along with a Flask web application that serves the model's prediction functionality through a REST API.
-
-## Project Structure
-
-
-mlOps-iris-model-deployment/
-├── app.py             # Flask application code
-├── Dockerfile         # Docker image definition
-├── hyperparameter_tuning_report.csv # Report of hyperparameter tuning results
-├── iris_model.pkl     # Saved trained model
-├── requirements.txt   # Python dependencies
-├── screenshots/       # Folder containing screenshots
-│   ├── docker_running.png     # Screenshot of the Docker container running
-│   └── prediction_output.png  # Screenshot of a successful prediction
-└── README.md          # This file
+This project demonstrates the training, packaging, and deployment of a machine learning model for classifying iris flowers. The model is trained using the classic Iris dataset and a Random Forest classifier. Hyperparameter tuning is performed using `GridSearchCV` to find the best model parameters. The trained model is then packaged into a Docker container along with a **Flask web application** that serves the model's prediction functionality through a REST API.
 
 
 ## Hyperparameter Tuning Report
@@ -38,6 +24,16 @@ The hyperparameter tuning process was performed using `GridSearchCV` with 3-fold
     - Increasing `n_estimators` generally improved performance, but the improvement plateaued after 100.
     - Deeper trees (`max_depth`) tended to perform better, with the best results at `max_depth` of 30 or None.
     - The default values for `min_samples_split` (2) and `min_samples_leaf` (1) worked well.
+
+## Flask Application
+
+The model is served using a **Flask web application** (`app.py`). Flask is a lightweight WSGI web application framework. It is designed to make getting started quick and easy, with the ability to scale up to complex applications.
+
+**Key Features of the Flask App:**
+
+-   **Loads the Trained Model:** The `app.py` script loads the trained `iris_model.pkl` file using the `joblib` library.
+-   **Defines a Prediction Endpoint:** The app defines a route `/predict` that accepts POST requests with JSON data containing the sepal and petal measurements of an iris flower.
+-   **Makes Predictions:** When a request is received, the app extracts the data, uses the loaded model to make a prediction, and returns the predicted species in JSON format.
 
 ## Running the Model with Docker
 
